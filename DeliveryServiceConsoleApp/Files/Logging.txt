@@ -1,0 +1,74 @@
+<DONE> Файл D:\VS works\workApp\DeliveryServiceConsoleApp\DeliveryServiceConsoleApp\Files\Logging.txt найден
+<DONE> Файл D:\VS works\workApp\DeliveryServiceConsoleApp\DeliveryServiceConsoleApp\Files\Result.txt найден
+<DONE> Выбранный район: Arbat
+<DONE> Выбранная дата: 10/24/2024 12:00:00 PM
+
+<DONE> Объект Package успешно создан. PackageId: 8bf92ae9-b18a-417f-96f0-5bea68768a51
+<DONE> Объект Package успешно создан. PackageId: c2caff32-92af-435c-a4c8-1b15dfaebd0e
+<DONE> Объект Package успешно создан. PackageId: 10fe7605-c781-446b-b53d-0b57e47caf5f
+<DONE> Объект Package успешно создан. PackageId: 57fa6a0d-8301-4341-9990-04b4d1bc65f0
+<DONE> Объект Package успешно создан. PackageId: c1c76ef1-fa9f-4f75-bbe0-5b430c23b965
+<DONE> Объект Package успешно создан. PackageId: 63cd1dcf-2904-49de-bf38-cce1953cb1d2
+<DONE> Объект Package успешно создан. PackageId: f605b433-5835-4b17-b137-05a83b44df17
+<DONE> Объект Package успешно создан. PackageId: 6c80b9a8-eecc-4106-a06f-edbb4a10340e
+<DONE> Объект Package успешно создан. PackageId: f40d44ee-c10f-4f44-a358-405a26e2fd1f
+<DONE> Объект Package успешно создан. PackageId: 850e2f45-b65d-42dc-a108-a14e21b7aec8
+<ERROR> PackageId: 71e74cc9-adfe-4d78-8b3c-a82c3b85f060. The field PackageWeight must be between 0.01 and 100..
+<DONE> Объект Package успешно создан. PackageId: 0a00f0d4-1b01-4ba6-baa0-3781b37971e1
+<DONE> Объект Package успешно создан. PackageId: 27e8b7fd-5ac0-497d-a47a-8649789cf1b7
+<DONE> Объект Package успешно создан. PackageId: a1dcc09a-801e-48a5-8d62-340751ec67c8
+<DONE> Объект Package успешно создан. PackageId: 39a94c23-2fd4-487c-8852-d1fb7582f461
+<DONE> Объект Package успешно создан. PackageId: 510e3176-98ec-4122-879c-8e0a707579fa
+<DONE> Объект Package успешно создан. PackageId: 4b612957-3fc0-48e2-add9-cf19227a487c
+<DONE> Объект Package успешно создан. PackageId: e09ecefb-5ff6-4d66-a801-8b16a0426670
+<DONE> Объект Package успешно создан. PackageId: 3103735a-2a58-4d7b-84f8-386f3bd64fc1
+<DONE> Объект Package успешно создан. PackageId: 61d9bb89-9572-4f0c-b522-6b3e2425b949
+<DONE> Объект Package успешно создан. PackageId: 8432cca9-26b3-4d9d-a60e-36f2d480108c
+<DONE> Объект Package успешно создан. PackageId: 4a014335-3361-4093-92f8-7ead2c316960
+<DONE> Объект Package успешно создан. PackageId: 325a356d-c3a8-4b52-a51c-71aeb22ce722
+<DONE> Объект Package успешно создан. PackageId: 1049afd6-bfca-4fe5-aad5-573b499731f3
+<DONE> Объект Package успешно создан. PackageId: c2b077d4-1e33-48cc-a127-1bb0bef3f4da
+<DONE> Объект Package успешно создан. PackageId: 45e9c40b-73c9-4298-b675-41db9566c254
+<DONE> Объект Package успешно создан. PackageId: 50a9c9ff-a486-4b44-bf9a-77bac6a2bec8
+<DONE> Объект Package успешно создан. PackageId: 5d7eb761-eeb0-4eb0-a00d-d05bf7d300b5
+<DONE> Объект Package успешно создан. PackageId: 6e3b6cb2-56a7-4f6f-ae65-84c10ba2a0cc
+<DONE> Объект Package успешно создан. PackageId: 6391aae7-25d5-4a5b-a187-415db82c9ba3
+<DONE> Программа завершена.
+-----------------------------
+<DONE> Файл D:\VS works\workApp\DeliveryServiceConsoleApp\DeliveryServiceConsoleApp\Files\Logging.txt найден
+<DONE> Файл D:\VS works\workApp\DeliveryServiceConsoleApp\DeliveryServiceConsoleApp\Files\Result.txt найден
+<DONE> Выбранный район: Arbat
+<DONE> Выбранная дата: 10/24/2024 12:00:00 PM
+
+<DONE> Объект Package успешно создан. PackageId: 8bf92ae9-b18a-417f-96f0-5bea68768a51
+<DONE> Объект Package успешно создан. PackageId: c2caff32-92af-435c-a4c8-1b15dfaebd0e
+<DONE> Объект Package успешно создан. PackageId: 10fe7605-c781-446b-b53d-0b57e47caf5f
+<DONE> Объект Package успешно создан. PackageId: 57fa6a0d-8301-4341-9990-04b4d1bc65f0
+<DONE> Объект Package успешно создан. PackageId: c1c76ef1-fa9f-4f75-bbe0-5b430c23b965
+<DONE> Объект Package успешно создан. PackageId: 63cd1dcf-2904-49de-bf38-cce1953cb1d2
+<DONE> Объект Package успешно создан. PackageId: f605b433-5835-4b17-b137-05a83b44df17
+<DONE> Объект Package успешно создан. PackageId: 6c80b9a8-eecc-4106-a06f-edbb4a10340e
+<DONE> Объект Package успешно создан. PackageId: f40d44ee-c10f-4f44-a358-405a26e2fd1f
+<DONE> Объект Package успешно создан. PackageId: 850e2f45-b65d-42dc-a108-a14e21b7aec8
+<ERROR> PackageId: 71e74cc9-adfe-4d78-8b3c-a82c3b85f060. The field PackageWeight must be between 0.01 and 100..
+<DONE> Объект Package успешно создан. PackageId: 0a00f0d4-1b01-4ba6-baa0-3781b37971e1
+<DONE> Объект Package успешно создан. PackageId: 27e8b7fd-5ac0-497d-a47a-8649789cf1b7
+<DONE> Объект Package успешно создан. PackageId: a1dcc09a-801e-48a5-8d62-340751ec67c8
+<DONE> Объект Package успешно создан. PackageId: 39a94c23-2fd4-487c-8852-d1fb7582f461
+<DONE> Объект Package успешно создан. PackageId: 510e3176-98ec-4122-879c-8e0a707579fa
+<DONE> Объект Package успешно создан. PackageId: 4b612957-3fc0-48e2-add9-cf19227a487c
+<DONE> Объект Package успешно создан. PackageId: e09ecefb-5ff6-4d66-a801-8b16a0426670
+<DONE> Объект Package успешно создан. PackageId: 3103735a-2a58-4d7b-84f8-386f3bd64fc1
+<DONE> Объект Package успешно создан. PackageId: 61d9bb89-9572-4f0c-b522-6b3e2425b949
+<DONE> Объект Package успешно создан. PackageId: 8432cca9-26b3-4d9d-a60e-36f2d480108c
+<DONE> Объект Package успешно создан. PackageId: 4a014335-3361-4093-92f8-7ead2c316960
+<DONE> Объект Package успешно создан. PackageId: 325a356d-c3a8-4b52-a51c-71aeb22ce722
+<DONE> Объект Package успешно создан. PackageId: 1049afd6-bfca-4fe5-aad5-573b499731f3
+<DONE> Объект Package успешно создан. PackageId: c2b077d4-1e33-48cc-a127-1bb0bef3f4da
+<DONE> Объект Package успешно создан. PackageId: 45e9c40b-73c9-4298-b675-41db9566c254
+<DONE> Объект Package успешно создан. PackageId: 50a9c9ff-a486-4b44-bf9a-77bac6a2bec8
+<DONE> Объект Package успешно создан. PackageId: 5d7eb761-eeb0-4eb0-a00d-d05bf7d300b5
+<DONE> Объект Package успешно создан. PackageId: 6e3b6cb2-56a7-4f6f-ae65-84c10ba2a0cc
+<DONE> Объект Package успешно создан. PackageId: 6391aae7-25d5-4a5b-a187-415db82c9ba3
+<DONE> Программа завершена.
+-----------------------------

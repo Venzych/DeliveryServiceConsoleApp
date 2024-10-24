@@ -1,0 +1,31 @@
+﻿namespace DeliveryServiceConsoleApp
+{
+    public enum District
+    {
+        Arbat,
+        Basmanny,
+        Begovoy,
+        Berzarin,
+        Cheryomushki,
+        ChistyePrudy,
+        Donskoy,
+        Dorogomilovo,
+        Frunzenskoye,
+        Golovinsky,
+        Golovino,
+        Khamovniki,
+        Krylatskoye,
+        Kuzminki,
+        Lefortovo,
+        Lyublino,
+        Marfino,
+        MaryinaRoshcha,
+        Meshchansky,
+        NagatinoSadovniki,
+        ProspektVernadskogo,
+        Savvinsky,
+        Sokolniki,
+        Tushino,
+        Yakimanka
+    }
+}

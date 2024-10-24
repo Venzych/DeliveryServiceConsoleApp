@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "DeliveryServiceConsoleApp": {
+      "commandName": "Project",
+      "commandLineArgs": "\"D:\\VS works\\workApp\\DeliveryServiceConsoleApp\\DeliveryServiceConsoleApp\\Files\\Logging.txt\"\r\n\"D:\\VS works\\workApp\\DeliveryServiceConsoleApp\\DeliveryServiceConsoleApp\\Files\\Result.txt\"\r\nArbat\r\n\"2024-10-24 12:00:00\""
+    }
+  }
+}
