@@ -8,17 +8,12 @@ public class Program
 {
     static void Main(string[] args)
     {
-        string _deliveryLog;
-        string _deliveryOrder;
-        District _cityDistrict;
-        DateTime _firstDeliveryDateTime;
-        string filePath = "D:\\VS works\\workApp\\DeliveryServiceConsoleApp\\DeliveryServiceConsoleApp\\Files\\data.txt";
-
+        DeliveryData deliveryData;
         #region Валидация вводимых аргументов
         if (args.Length > 0)
         {
-            #region _deliveryLog
-            _deliveryLog = args[0];
+            #region Обработка файла логирования
+            string _deliveryLog = args[0];
 
             if (File.Exists(_deliveryLog))
             {
@@ -26,17 +21,16 @@ public class Program
                 {
                     sw.WriteLine($"<DONE> Файл {_deliveryLog} найден");
                 }
-                //Console.WriteLine($"Файл {_deliveryLog} найден"); //Для дебага
             }
             else
             {
-                Console.WriteLine("Файл не найден: " + _deliveryLog);
+                Console.WriteLine("Файл для логирования не найден: " + _deliveryLog);
                 return;
             }
             #endregion
 
-            #region _deliveryOrder
-            _deliveryOrder = args[1];
+            #region Обработка результирующего файла
+            string _deliveryOrder = args[1];
 
             if (File.Exists(_deliveryOrder))
             {
@@ -44,21 +38,21 @@ public class Program
                 {
                     sw.WriteLine($"<DONE> Файл {_deliveryOrder} найден");
                 }
-                //Console.WriteLine($"Файл {_deliveryOrder} найден"); //Для дебага
             }
             else
             {
-                Console.WriteLine("Файл не найден: " + _deliveryOrder);
+                Console.WriteLine("Результирующий файл не найден: " + _deliveryOrder);
                 using (StreamWriter sw = new StreamWriter(_deliveryLog, true))
                 {
-                    sw.WriteLine($"<ERROR> Файл {_deliveryOrder} не найден");
+                    sw.WriteLine($"<ERROR> Результирующий файл не найден: {_deliveryOrder}");
                 }
                 return;
             }
             #endregion
 
-            #region _cityDistrictArg
+            #region Обработка выбранного района
             string _cityDistrictArg = args[2];
+            District _cityDistrict;
 
             if (Enum.TryParse<District>(_cityDistrictArg, true, out District district))
             {
@@ -80,9 +74,10 @@ public class Program
             }
             #endregion
 
-            #region _firstDeliveryDateTimeArg
+            #region Обработка выбранного времени
             string _firstDeliveryDateTimeArg = args[3];
             string dataFormat = "yyyy-MM-dd HH:mm:ss";
+            DateTime _firstDeliveryDateTime;
 
             if (DateTime.TryParseExact(_firstDeliveryDateTimeArg, dataFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date))
             {
@@ -103,6 +98,9 @@ public class Program
                 return;
             }
             #endregion
+
+            // Создание всех компонентов для удобства (файл логирования, результирующий файл, выбранный район, выбранное время)
+            deliveryData = new DeliveryData(_deliveryLog, _deliveryOrder, _cityDistrict, _firstDeliveryDateTime);
         }
         else
         {
@@ -111,188 +109,77 @@ public class Program
         }
         #endregion
 
+        // Путь файла с данными
+        string filePath = @"D:\VS works\workApp\DeliveryServiceConsoleApp\DeliveryServiceConsoleApp\Files\data.txt";
+
+        Reader reader = new Reader(filePath);
+        Logger logger = new Logger(deliveryData.DeliveryLog);
+        Writer writer = new Writer(deliveryData.DeliveryOrder);
+
+
+
         List<Package>? packageArray = new List<Package>();
 
-
-        /*
-        //CreatePackage(Guid.NewGuid(), 1.3, District.Arbat, DateTime.Now.AddMinutes(30)); // Создание конретной посылки вручную
-        for (int i = 0; i < 15; i++)
-            CreateRandomPackage; //Создание конкретного числа экземпляров
-        */
-
-
-        ReadFile(filePath);
-        if (packageArray.Count() == 0)
+        try
         {
-            Console.WriteLine("Нет данных.");
-            using (StreamWriter sw = new StreamWriter(_deliveryLog, true))
+            foreach (var line in reader.ReadLines())
             {
-                sw.WriteLine("Нет данных.");
+                var parts = line.Split(' ');
+                if (parts.Length < 4)
+                {
+                    logger.Error("Недостаточно данных в строке: " + line);
+                    continue;
+                }
+
+                // Преобразуем каждый элемент в соответствующий тип
+                Guid guid = Guid.Parse(parts[0]);
+                double doubleValue = double.Parse(parts[1]);
+                District enumValue = (District)Enum.Parse(typeof(District), parts[2]);
+                DateTime dateTimeValue = DateTime.Parse(parts[3] + " " + parts[4]);
+
+
+                // Валидация данных
+                Package package = DeliveryService.ToPackage(guid, doubleValue, enumValue, dateTimeValue);
+                var context = new ValidationContext(package);
+                var results = new List<ValidationResult>();
+                if (!Validator.TryValidateObject(package, context, results, true))
+                {
+                    foreach (var error in results)
+                    {
+                        logger.Error($" PackageId: {package.PackageId}. {error.ErrorMessage}.");
+                    }
+                }
+                else
+                {
+                    logger.Done($"Объект Package успешно создан. PackageId: {package.PackageId}");
+                    packageArray.Add(package);
+                }
             }
         }
-        
+        catch (Exception ex)
+        {
+            logger.Error("Ошибка при обработке файла: " + ex.Message);
+        }
 
 
-
-            packageArray = FiltredByDistrict(packageArray, _cityDistrict); //_cityDistrict (реализация по условию)
+        if (packageArray.Count() == 0)
+        {
+            logger.Error("Нет данных.");
+        }
+        packageArray = DeliveryService.FilterByDistrict(packageArray, deliveryData.CityDistrict);
         if (packageArray.Count != 0)
         {
-            packageArray = SortedByDateTime(packageArray); //_firstDeliveryDateTime (реализация по условию)
+            packageArray = DeliveryService.SortByDateTime(packageArray, deliveryData.FirstDeliveryDateTime);
         }
         if (packageArray.Count != 0)
         {
-            OutSortedPackageArray(packageArray);
+            writer.Print(packageArray);
         }
         else
         {
-            Console.WriteLine($"No one package in the {_cityDistrict} from {_firstDeliveryDateTime} to {_firstDeliveryDateTime.AddMinutes(30)}.");
+            Console.WriteLine($"No one package in the {deliveryData.CityDistrict} from {deliveryData.FirstDeliveryDateTime} to {deliveryData.FirstDeliveryDateTime.AddMinutes(30)}.");
         }
-
-        using (StreamWriter sw = new StreamWriter(_deliveryLog, true))
-        {
-            sw.WriteLine($"<DONE> Программа завершена.");
-            sw.WriteLine("-----------------------------");
-        }
-
-
-
-
-
-
-        void CreatePackage(Guid packageId, double packageWeight, District packageDistrict, DateTime deliveryTime)
-        {
-            Package package = new Package(packageId, packageWeight, packageDistrict, deliveryTime);
-
-            var context = new ValidationContext(package);
-            var results = new List<ValidationResult>();
-            if (!Validator.TryValidateObject(package, context, results, true))
-            {
-                //Console.WriteLine("Не удалось создать объект Package"); // Для дебага
-                foreach (var error in results)
-                {
-                    using (StreamWriter sw = new StreamWriter(_deliveryLog, true))
-                    {
-                        sw.WriteLine($"<ERROR> PackageId: {package.PackageId}. {error.ErrorMessage}.");
-                    }
-                    //Console.WriteLine(error.ErrorMessage); //Для дебага
-                }
-            }
-            else
-            {
-                using (StreamWriter sw = new StreamWriter(_deliveryLog, true))
-                {
-                    sw.WriteLine($"<DONE> Объект Package успешно создан. PackageId: {package.PackageId}");
-                }
-                //Console.WriteLine($"Объект Package успешно создан. PackageId: {package.PackageId}\n"); //Для дебага
-                packageArray.Add(package);
-            }
-        }
-
-        void CreateRandomPackage()
-        {
-            Random random = new Random();
-
-
-            Guid packageId = Guid.NewGuid();
-
-
-            double packageWeight;
-            double min = -10.00; // Для создания проверки на валидирование данных. Верный интервал начинается с 0.01
-            double max = 100.00;
-            packageWeight = min + (max - min) * random.NextDouble();
-            packageWeight = Math.Round(packageWeight, 2);
-
-
-            District packageDistrict;
-            Array enumValues = Enum.GetValues(typeof(District));
-            int randomIndex = random.Next(enumValues.Length);
-            packageDistrict = (District)enumValues.GetValue(randomIndex);
-
-
-            DateTime deliveryTime;
-            int year = random.Next(2024, 2025); // Случайный год (для данной выборки год только 2024)
-            int month = random.Next(10, 11); // Случайный месяц (для данной выборки месяц только 10)
-            int day = random.Next(1, DateTime.DaysInMonth(year, month) + 1); // Случайный день в данном месяце
-            int hour = random.Next(0, 24); // Случайный час от 0 до 23
-            int minute = random.Next(0, 60); // Случайная минута от 0 до 59
-            int second = random.Next(0, 60); // Случайная секунда от 0 до 59
-
-            deliveryTime = new DateTime(year, month, day, hour, minute, second);
-
-            /*
-            using (StreamWriter sw = new StreamWriter(filePath, true))
-            {
-                sw.WriteLine($"{packageId} {packageWeight} {packageDistrict} {deliveryTime}");
-            }
-             // Создание новых тестов
-            */
-
-            CreatePackage(packageId, packageWeight, packageDistrict, deliveryTime);
-        }
-
-        List<Package> FiltredByDistrict(List<Package> packageArray, District _cityDistrict)
-        {
-            return packageArray.Where(p => p.PackageDistrict == _cityDistrict).ToList();
-        }
-
-        List<Package> SortedByDateTime(List<Package> packageArray)
-        {
-            var _lastDeliveryDateTime = _firstDeliveryDateTime.AddMinutes(30);
-            return packageArray.OrderBy(p => p.DeliveryTime).Where(p => p.DeliveryTime <= _lastDeliveryDateTime && p.DeliveryTime >= _firstDeliveryDateTime).ToList();
-        }
-
-        void ReadFile(string filePath)
-        {
-            try
-            {              
-                foreach (var line in File.ReadLines(filePath))
-                {
-                    var parts = line.Split(' ');
-                    if (parts.Length < 4)
-                    {
-                        using (StreamWriter sw = new StreamWriter(_deliveryLog, true))
-                        {
-                            sw.WriteLine("<ERROR> Недостаточно данных в строке: " + line);
-                        }
-                        continue;
-                    }
-
-                    // Преобразуем каждый элемент в соответствующий тип
-                    Guid guid = Guid.Parse(parts[0]);
-                    double doubleValue = double.Parse(parts[1]);
-                    District enumValue = (District)Enum.Parse(typeof(District), parts[2]);
-                    DateTime dateTimeValue = DateTime.Parse(parts[3] + " " + parts[4]);
-
-                    CreatePackage(guid, doubleValue, enumValue, dateTimeValue);
-                }
-            }
-            catch (Exception ex)
-            {
-                using (StreamWriter sw = new StreamWriter(_deliveryLog, true))
-                {
-                    sw.WriteLine("<ERROR> Ошибка при обработке файла: " + ex.Message);
-                }
-            }
-        }
-
-        void OutSortedPackageArray(List<Package> packageArray)
-        {
-            Console.WriteLine("Список отсортированных заказов:");
-            using (StreamWriter sw = new StreamWriter(_deliveryOrder))
-            {
-                
-            }
-            foreach (var package in packageArray)
-            {
-                using (StreamWriter sw = new StreamWriter(_deliveryOrder, true))
-                {
-                    sw.WriteLine($"PackageID: {package.PackageId}. Weight: {package.PackageWeight}. " +
-                    $"To {package.PackageDistrict} by {package.DeliveryTime}.");
-                }
-                Console.WriteLine($"PackageID: {package.PackageId}. Weight: {package.PackageWeight}. " +
-                    $"To {package.PackageDistrict} by {package.DeliveryTime}.");
-            }
-        }
+        logger.Done($"Программа завершена." + "\n-----------------------------");        
     }
 }
 
@@ -300,5 +187,4 @@ public class Program
 
 /*
  * string dataFormat = "yyyy-MM-dd HH:mm:ss";
- * filePath = "D:\VS works\workApp\DeliveryServiceConsoleApp\DeliveryServiceConsoleApp\Files\data.txt"
 */
